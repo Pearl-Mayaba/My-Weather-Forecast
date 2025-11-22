@@ -9,28 +9,34 @@
   <body>
     <div class="Weather-app">
       <header>
-        <form>
-          <input type="Search" placeholder="Enter a city" required />
+        <form id="search-form">
+          <input
+            type="Search"
+            id="city-input"
+            placeholder="Enter a city"
+            required
+          />
           <input type="Submit" value="Search" />
         </form>
       </header>
       <div>
         <main>
-          <h1>Benoni</h1>
+          <h1 id="city-name">Benoni</h1>
+
           <p>
-            Saturday 11:51 Sunny
-            <br />
-            Humidity: <span class="highlight">66%</span> Wind:
-            <span class="highlight">3.13km/h</span>
+            <span id="description">Saturday 11:51 Sunny</span><br />
+            Humidity: <span id="humidity" class="highlight">66%</span> Wind:
+            <span id="wind" class="highlight">3.13km/h</span>
           </p>
 
           <div>
             <div class="Weather-app-icon">
               <img
+                id="weather-icon"
                 src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
               />
             </div>
-            12&deg;C
+            <span id="temperature">12° C</span>
           </div>
         </main>
       </div>
@@ -50,5 +56,6 @@
         Netlify
       </a>
     </footer>
+    <script src="index.js"></script>
   </body>
 </html>
