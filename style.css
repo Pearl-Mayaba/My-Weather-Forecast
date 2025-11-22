@@ -77,7 +77,20 @@ footer {
   opacity: 0.8;
 }
 
-footer a {
+/* footer a {
   color: #dfe6e9;
-  text-decoration: underline;
+  text-decoration: underline; */
+/* } */
+.highlight {
+  color: #ff66b2;
+  font-weight: 600;
+}
+
+footer a {
+  color: #ffeaa7;
+  font-weight: 600;
+}
+
+footer a:hover {
+  color: #fab1a0;
 }
