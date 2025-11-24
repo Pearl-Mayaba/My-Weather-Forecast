@@ -11,13 +11,10 @@ function searchCity(city) {
       }
 
       document.querySelector("#city-name").innerHTML = data.city;
-
       document.querySelector("#temperature").innerHTML =
         Math.round(data.temperature.current) + "°C";
-
       document.querySelector("#humidity").innerHTML =
         data.temperature.humidity + "%";
-
       document.querySelector("#wind").innerHTML = data.wind.speed + " km/h";
 
       let now = new Date();
@@ -34,7 +31,6 @@ function searchCity(city) {
 
       let hours = now.getHours().toString().padStart(2, "0");
       let minutes = now.getMinutes().toString().padStart(2, "0");
-
       let time = `${hours}:${minutes}`;
 
       document.querySelector(
@@ -44,11 +40,49 @@ function searchCity(city) {
       document.querySelector(
         "#weather-icon"
       ).src = `https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${data.condition.icon}.png`;
+
+      getForecast(city);
     })
     .catch((error) => {
       console.log(error);
       alert("Something went wrong.");
     });
+}
+
+function getForecast(city) {
+  let apiKey = "3o2feet790854a8c48a5d1d7523a0fbb";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      displayForecast(data.daily);
+    });
+}
+
+function displayForecast(dailyForecast) {
+  let forecastHTML = "";
+
+  dailyForecast.slice(1, 6).forEach(function (day) {
+    let date = new Date(day.time * 1000);
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let weekday = days[date.getDay()];
+
+    forecastHTML += `
+      <div class="forecast-day">
+        <div class="forecast-date">${weekday}</div>
+        <img src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+          day.condition.icon
+        }.png" />
+        <div class="forecast-temp">
+          <span class="max">${Math.round(day.temperature.maximum)}°</span>
+          <span class="min">${Math.round(day.temperature.minimum)}°</span>
+        </div>
+      </div>
+    `;
+  });
+
+  document.querySelector("#forecast").innerHTML = forecastHTML;
 }
 
 let form = document.querySelector("#search-form");
@@ -60,3 +94,4 @@ form.addEventListener("submit", function (event) {
 
   document.querySelector("#city-input").value = "";
 });
+searchCity("Benoni");
